@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'order_screen.dart';
+
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -59,7 +61,7 @@ class DashboardPage extends StatelessWidget {
           children: [
             _buildMenuItem(Icons.event, 'Events'),
             _buildMenuItem(Icons.photo, 'Gallery'),
-            _buildMenuItem(Icons.chat, 'Messages'),
+            _buildMenuItemWithNav(context, Icons.shopping_cart, 'Orders'),
             _buildMenuItem(Icons.analytics, 'Reports'),
           ],
         ),
@@ -89,4 +91,29 @@ class DashboardPage extends StatelessWidget {
       ),
     );
   }
+}
+Widget _buildMenuItemWithNav(BuildContext context, IconData icon, String label) {
+  return Card(
+    elevation: 4,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    child: InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const OrderScreen()),
+        );
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 40, color: Colors.blue),
+            const SizedBox(height: 10),
+            Text(label, style: const TextStyle(fontSize: 16)),
+          ],
+        ),
+      ),
+    ),
+  );
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pages/login.dart';
 import 'pages/dashboard.dart';
+import 'pages/order_screen.dart';
 
 void main() {
   runApp(const TrixTechApp());
@@ -18,6 +19,7 @@ class TrixTechApp extends StatelessWidget {
       routes: {
         '/': (context) => const LoginPage(),
         '/Dashboard': (context) => const DashboardPage(),
+        '/Orders': (context) => const OrderScreen(), // ✅ properly inside MaterialApp
       },
       debugShowCheckedModeBanner: false,
     );
