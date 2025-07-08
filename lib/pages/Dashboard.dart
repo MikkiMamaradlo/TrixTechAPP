@@ -8,7 +8,6 @@ class DashboardPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard'),
-        backgroundColor: Colors.blue,
       ),
       body: const Center(
         child: Text(

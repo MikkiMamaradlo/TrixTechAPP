@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dashboard.dart';
+import 'Dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,12 +15,21 @@ class _LoginPageState extends State<LoginPage> {
 
   void _signIn() {
     if (_formKey.currentState!.validate()) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const DashboardPage()),
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => const Center(
+          child: CircularProgressIndicator(),
+        ),
       );
+
+      Future.delayed(const Duration(seconds: 2), () {
+        Navigator.pop(context); // Close loading dialog
+        Navigator.pushNamed(context, '/Dashboard');
+      });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

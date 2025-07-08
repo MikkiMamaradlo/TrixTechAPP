@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'pages/login.dart';
+import 'pages/dashboard.dart';
 
 void main() {
   runApp(const TrixTechApp());
@@ -12,12 +13,13 @@ class TrixTechApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TrixTech',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const LoginPage(),
+      theme: ThemeData(primarySwatch: Colors.blue),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LoginPage(),
+        '/Dashboard': (context) => const DashboardPage(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
 }
-
