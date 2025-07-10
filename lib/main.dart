@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'pages/login.dart';
-import 'pages/dashboard.dart';
-import 'pages/order_screen.dart';
+import 'auth/login.dart';
+import 'routes/dashboard.dart';
+import 'auth/order_screen.dart';
 
 void main() {
   runApp(const TrixTechApp());

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dashboard.dart';
+import '../routes/dashboard.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
