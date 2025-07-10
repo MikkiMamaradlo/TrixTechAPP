@@ -5,65 +5,94 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color primaryYellow = const Color(0xFFFFD600); // Brighter yellow
+    final Color accentColor = Colors.black87;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        backgroundColor: Colors.blue,
+        backgroundColor: primaryYellow,
+        elevation: 0,
+        foregroundColor: accentColor,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Semantics(
-                label: 'Profile picture of John Doe',
+        child: Column(
+          children: [
+            // Profile Picture with border and semantics
+            Semantics(
+              label: 'Profile picture of Krenz',
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: primaryYellow, width: 4),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
                 child: CircleAvatar(
-                  radius: 60,
+                  radius: 65,
                   backgroundImage: const NetworkImage('https://example.com/avatar.jpg'),
-                  backgroundColor: Colors.grey,
+                  backgroundColor: Colors.grey[200],
                 ),
               ),
-              const SizedBox(height: 16),
-              const Text(
-                'John Doe',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-                semanticsLabel: 'Full name: John Doe',
+            ),
+            const SizedBox(height: 24),
+            // Name
+            const Text(
+              'Krenz',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+                letterSpacing: 1.2,
               ),
-              const SizedBox(height: 8),
-              const Text(
-                'johndoe@example.com',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black87,
+              semanticsLabel: 'Full name: Krenz',
+            ),
+            const SizedBox(height: 16),
+            // Profile Info Card
+            Card(
+              elevation: 2,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              margin: EdgeInsets.zero,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    ProfileInfoRow(label: 'ID', value: 'rpo042403'),
+                    SizedBox(height: 10),
+                    ProfileInfoRow(label: 'Age', value: '22'),
+                    SizedBox(height: 10),
+                    ProfileInfoRow(label: 'Address', value: 'Caloocan, Balayan Batangas'),
+                    SizedBox(height: 10),
+                    ProfileInfoRow(label: 'Birthday', value: 'April 20, 2000'),
+                    SizedBox(height: 10),
+                    ProfileInfoRow(label: 'Cellphone', value: '09361321468'),
+                  ],
                 ),
-                semanticsLabel: 'Email: johndoe@example.com',
               ),
-              const SizedBox(height: 8),
-              const Text(
-                'San Francisco, CA',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
-                semanticsLabel: 'Location: San Francisco, California',
-              ),
-              const SizedBox(height: 32),
-              Semantics(
-                button: true,
-                label: 'Edit Profile',
+            ),
+            const SizedBox(height: 32),
+            // Edit Profile Button
+            Semantics(
+              button: true,
+              label: 'Edit Profile',
+              child: SizedBox(
+                width: double.infinity,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(48),
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
+                    backgroundColor: primaryYellow,
+                    foregroundColor: accentColor,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
+                    elevation: 2,
                   ),
                   onPressed: () {
                     // Edit profile action
@@ -71,14 +100,76 @@ class ProfileScreen extends StatelessWidget {
                   icon: const Icon(Icons.edit),
                   label: const Text(
                     'Edit Profile',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: primaryYellow,
+        unselectedItemColor: Colors.grey[600],
+        backgroundColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Wishlist',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'Book Now',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: 3,
+        onTap: (index) {
+          // Handle navigation here
+        },
+      ),
+    );
+  }
+}
+
+class ProfileInfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const ProfileInfoRow({super.key, required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          '$label: ',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            color: Colors.black87,
+          ),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.black87,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }
